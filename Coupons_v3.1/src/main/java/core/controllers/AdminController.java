@@ -17,7 +17,7 @@ import core.services.AdminService;
 
 @RestController
 @CrossOrigin
-@RequestMapping("/admin")
+@RequestMapping("/api")
 public class AdminController extends ClientController {
 
 	@Autowired
