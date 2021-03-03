@@ -88,11 +88,15 @@ public class CompanyService extends ClientService {
 		if (couponDB == null)
 			throw new CouponSystemException("update coupon failed: not found");
 
+		if (!validateCouponStartDate(coupon)) {
+			throw new CouponSystemException("update coupon failed: end date cant be before start date");
+		}
+
 		if (!validateCouponEndDate(coupon))
 			throw new CouponSystemException("update coupon failed: expired coupon");
 
 		if (!validateCouponByTitleAndCompanyId(coupon))
-			throw new CouponSystemException("update coupon failed: already exists - title should be unique");
+			throw new CouponSystemException("update coupon failed: already exists (title should be unique)");
 
 		if (coupon.getAmount() < 1)
 			throw new CouponSystemException("update coupon failed: amount should be grater then 0");
@@ -224,7 +228,7 @@ public class CompanyService extends ClientService {
 	 * @return boolean
 	 */
 	private boolean validateCouponStartDate(Coupon coupon) {
-		return coupon.getEndDate().isBefore(coupon.getStartDate());
+		return coupon.getEndDate().isAfter(coupon.getStartDate());
 	}
 
 	/**
