@@ -34,24 +34,15 @@ public interface CouponRepository extends JpaRepository<Coupon, Integer> {
 
 	/**
 	 * The method seek in database coupon instances belonging to a specific company
-	 * using company id.
-	 * 
-	 * @param Integer id
-	 * @throws CouponSystemException
-	 */
-	@Query(value = "select distinct c from Coupon c where c.company.id = :id")
-	List<Coupon> findAllByCompanyId(@Param("id") Integer id) throws CouponSystemException;
-
-	/**
-	 * The method seek in database coupon instances belonging to a specific company
 	 * and category.
 	 * 
 	 * @param Integer  id
 	 * @param Category category
 	 * @throws CouponSystemException
 	 */
-	@Query(value = "select distinct c from Coupon c where c.category = :category")
-	List<Coupon> findAllByCompanyAndCategory(@Param("category") Category category) throws CouponSystemException;
+	@Query(value = "select distinct c from Coupon c where c.company.id = :id and c.category = :category")
+	List<Coupon> findAllByCompanyAndCategory(@Param("id") Integer id, @Param("category") Category category)
+			throws CouponSystemException;
 
 	/**
 	 * The method seek in database coupon instances belonging to a specific company
@@ -64,16 +55,6 @@ public interface CouponRepository extends JpaRepository<Coupon, Integer> {
 	@Query(value = "select distinct c from Coupon c where c.company.id = :id and c.price <= :price")
 	List<Coupon> findAllByCompanyAndPrice(@Param("id") Integer id, @Param("price") double price)
 			throws CouponSystemException;
-
-	/**
-	 * The method seek in database coupon instances belonging to a specific customer
-	 * using customer id.
-	 * 
-	 * @param Integer id
-	 * @throws CouponSystemException
-	 */
-	@Query(value = "select distinct c from Coupon c inner join c.customers cs where cs.id = :id")
-	List<Coupon> findAllByCustomerId(@Param("id") Integer id) throws CouponSystemException;
 
 	/**
 	 * The method seek in database coupon instances belonging to a specific customer

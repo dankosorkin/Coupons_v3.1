@@ -26,7 +26,7 @@ public class AdminService extends ClientService {
 	 */
 	@Override
 	public boolean login(String email, String password) {
-		return this.email == email && this.password == password;
+		return this.email.equals(email) && this.password.equals(password);
 	}
 
 	/**

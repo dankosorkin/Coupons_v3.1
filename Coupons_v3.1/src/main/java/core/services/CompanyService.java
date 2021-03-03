@@ -58,12 +58,15 @@ public class CompanyService extends ClientService {
 			throw new CouponSystemException("add coupon failed: already exists");
 		}
 
+		if (!validateCouponStartDate(coupon)) {
+			throw new CouponSystemException("add coupon failed: end date cant be before start date");
+		}
+
 //		if (!validateCouponEndDate(coupon)) {
 //			throw new CouponSystemException("add coupon failed: expired coupon");
 //		}
 
-		Company company = loggedInCompany();
-		company.addCoupon(coupon);
+		loggedInCompany().addCoupon(coupon);
 
 		return coupon;
 
@@ -73,8 +76,6 @@ public class CompanyService extends ClientService {
 	 * The method updates coupon of a company. Method also should check expiration
 	 * date; but for the learning purpose and test of the thread for expired
 	 * coupons, date check is disabled.
-	 * 
-	 * && coupon.getEndDate().isAfter(LocalDate.now())
 	 * 
 	 * @param Coupon coupon
 	 * @return boolean
@@ -159,7 +160,7 @@ public class CompanyService extends ClientService {
 	 */
 	public List<Coupon> getAllCoupons() throws CouponSystemException {
 
-		List<Coupon> coupons = couponRepository.findAllByCompanyId(this.id);
+		List<Coupon> coupons = loggedInCompany().getCoupons();
 
 		if (coupons.size() > 0)
 			return coupons;
@@ -177,7 +178,8 @@ public class CompanyService extends ClientService {
 	 */
 	public List<Coupon> getAllByCategory(Category category) throws CouponSystemException {
 
-		List<Coupon> coupons = couponRepository.findAllByCompanyAndCategory(category);
+		List<Coupon> coupons = couponRepository.findAllByCompanyAndCategory(this.id, category);
+//		List<Coupon> coupons = couponRepository.findAllByAndCategory(this.getClass().getName(), category);
 
 		if (coupons.size() > 0)
 			return coupons;
@@ -213,6 +215,16 @@ public class CompanyService extends ClientService {
 	private boolean validateCouponByTitleAndCompanyId(Coupon coupon) throws CouponSystemException {
 		Coupon couponDB = couponRepository.findByTitle(coupon.getTitle());
 		return (couponDB == null || couponDB.getCompany().getId() != this.id);
+	}
+
+	/**
+	 * The method validates coupon start date
+	 * 
+	 * @param Coupon coupon
+	 * @return boolean
+	 */
+	private boolean validateCouponStartDate(Coupon coupon) {
+		return coupon.getEndDate().isBefore(coupon.getStartDate());
 	}
 
 	/**

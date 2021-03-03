@@ -20,18 +20,21 @@ public class LoginManager {
 	private CustomerService customerService;
 
 	public ClientService login(String email, String password, ClientType client) throws CouponSystemException {
+
 		switch (client) {
 		case ADMINISTRATOR:
 			if (adminService.login(email, password))
 				return adminService;
+			break;
 		case COMPANY:
 			if (companyService.login(email, password))
 				return companyService;
+			break;
 		case CUSTOMER:
 			if (customerService.login(email, password))
 				return customerService;
-		default:
-			throw new CouponSystemException("Client type doesnt recognized");
+			break;
 		}
+		throw new CouponSystemException("Failed to log you in");
 	}
 }

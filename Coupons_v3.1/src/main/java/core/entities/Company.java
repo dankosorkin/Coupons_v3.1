@@ -12,6 +12,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 /**
  * Class describes Company entity
  */
@@ -28,6 +30,7 @@ public class Company implements Serializable {
 	private String password;
 
 	@OneToMany(mappedBy = "company", cascade = CascadeType.ALL)
+	@JsonIgnore
 	private List<Coupon> coupons;
 
 	/** Empty constructor */

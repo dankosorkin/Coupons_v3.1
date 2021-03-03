@@ -2,8 +2,8 @@ package core.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import core.exceptions.CouponSystemException;
@@ -17,8 +17,8 @@ public class CustomerController extends ClientController {
 	@Autowired
 	private CustomerService service;
 
-	@PostMapping("/add_coupon")
-	public void addCoupon() {
+	@RequestMapping(value = "/purchase", method = RequestMethod.PUT)
+	public void purchaseCoupon() {
 
 	}
 
