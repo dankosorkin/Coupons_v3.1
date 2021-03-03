@@ -1,4 +1,4 @@
-package core.login;
+package core.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
 import core.exceptions.CouponSystemException;
+import core.login.ClientType;
+import core.login.LoginManager;
 import core.services.ClientService;
 import core.sessions.Session;
 import core.sessions.SessionContext;
