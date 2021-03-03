@@ -38,7 +38,7 @@ public class CustomerService extends ClientService {
 			this.id = customer.getId();
 			return true;
 		}
-		throw new CouponSystemException("failed to login");
+		throw new CouponSystemException("Failed to log you in as customer");
 	}
 
 	/**

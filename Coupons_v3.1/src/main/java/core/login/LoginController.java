@@ -1,11 +1,13 @@
 package core.login;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
 
 import core.exceptions.CouponSystemException;
 import core.services.ClientService;
@@ -27,13 +29,16 @@ public class LoginController {
 	public String login(@RequestParam String email, @RequestParam String password, @RequestParam ClientType client) {
 		try {
 			service = manager.login(email, password, client);
-			session = ctx.createSession();
-			session.setAttribute("service", service);
-			service.setToken(session.token);
-			return session.token;
+			if (service != null) {
+				session = ctx.createSession();
+				session.setAttribute("service", service);
+				service.setToken(session.token);
+				return session.token;
+			} else {
+				throw new ResponseStatusException(HttpStatus.BAD_GATEWAY, "Login failed");
+			}
 		} catch (CouponSystemException e) {
-			e.printStackTrace();
+			throw new ResponseStatusException(HttpStatus.BAD_GATEWAY, e.getMessage());
 		}
-		return null;
 	}
 }
