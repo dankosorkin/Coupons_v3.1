@@ -3,6 +3,7 @@ package core.entities;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Objects;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -256,6 +257,24 @@ public class Coupon implements Serializable {
 	 */
 	public void setImage(String image) {
 		this.image = image;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(category, endDate, id, startDate, title);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (!(obj instanceof Coupon)) {
+			return false;
+		}
+		Coupon other = (Coupon) obj;
+		return category == other.category && Objects.equals(endDate, other.endDate) && Objects.equals(id, other.id)
+				&& Objects.equals(startDate, other.startDate) && Objects.equals(title, other.title);
 	}
 
 	@Override

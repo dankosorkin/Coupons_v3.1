@@ -132,23 +132,6 @@ public class Company implements Serializable {
 		return coupons;
 	}
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(id, name);
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj) {
-			return true;
-		}
-		if (!(obj instanceof Company)) {
-			return false;
-		}
-		Company other = (Company) obj;
-		return Objects.equals(id, other.id) && Objects.equals(name, other.name);
-	}
-
 	/**
 	 * Set method for collection of the coupons belonging to a company
 	 */
@@ -165,6 +148,23 @@ public class Company implements Serializable {
 		}
 		coupon.setCompany(this);
 		return coupons.add(coupon);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(email, id, name);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (!(obj instanceof Company)) {
+			return false;
+		}
+		Company other = (Company) obj;
+		return Objects.equals(email, other.email) && Objects.equals(id, other.id) && Objects.equals(name, other.name);
 	}
 
 	@Override

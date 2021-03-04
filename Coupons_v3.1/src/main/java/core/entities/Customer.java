@@ -3,6 +3,7 @@ package core.entities;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -170,6 +171,24 @@ public class Customer implements Serializable {
 			coupons = new ArrayList<Coupon>();
 		}
 		return coupons.add(coupon);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(email, firstName, id, lastName);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (!(obj instanceof Customer)) {
+			return false;
+		}
+		Customer other = (Customer) obj;
+		return Objects.equals(email, other.email) && Objects.equals(firstName, other.firstName)
+				&& Objects.equals(id, other.id) && Objects.equals(lastName, other.lastName);
 	}
 
 	@Override
