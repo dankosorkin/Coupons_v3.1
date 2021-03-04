@@ -38,12 +38,11 @@ public class AdminService extends ClientService {
 	 * @throws CouponSystemException
 	 */
 	public Company addCompany(Company company) throws CouponSystemException {
-		if (companyRepository.findByNameAndEmail(company.getName(), company.getEmail()) == null) {
-			companyRepository.save(company);
-			return company;
-		} else {
+		if (companyRepository.findByNameAndEmail(company.getName(), company.getEmail()) == null)
+			return companyRepository.save(company);
+		else
 			throw new CouponSystemException("add company failed: already exists");
-		}
+
 	}
 
 	/**
@@ -105,7 +104,7 @@ public class AdminService extends ClientService {
 	 * @return List<Company> companies
 	 * @throws CouponSystemException
 	 */
-	public List<Company> getAllComapnies() throws CouponSystemException {
+	public List<Company> getAllCompanies() throws CouponSystemException {
 		List<Company> companies = companyRepository.findAll();
 		if (companies != null)
 			return companies;
