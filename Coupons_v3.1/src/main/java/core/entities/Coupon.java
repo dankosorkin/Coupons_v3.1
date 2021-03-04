@@ -46,7 +46,7 @@ public class Coupon implements Serializable {
 	@ManyToMany(cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH })
 	@JoinTable(name = "customers_vs_coupons", joinColumns = { @JoinColumn(name = "coupon_id") }, inverseJoinColumns = {
 			@JoinColumn(name = "customer_id") })
-	private List<Customer> customers;
+	private List<Customer> customer;
 
 	/** Empty constructor */
 	public Coupon() {
@@ -261,7 +261,7 @@ public class Coupon implements Serializable {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(category, endDate, id, startDate, title);
+		return Objects.hash(category, endDate, id, price, startDate, title);
 	}
 
 	@Override
@@ -274,7 +274,8 @@ public class Coupon implements Serializable {
 		}
 		Coupon other = (Coupon) obj;
 		return category == other.category && Objects.equals(endDate, other.endDate) && Objects.equals(id, other.id)
-				&& Objects.equals(startDate, other.startDate) && Objects.equals(title, other.title);
+				&& Objects.equals(price, other.price) && Objects.equals(startDate, other.startDate)
+				&& Objects.equals(title, other.title);
 	}
 
 	@Override

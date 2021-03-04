@@ -34,7 +34,7 @@ public class LoginController {
 			if (service != null) {
 				session = ctx.createSession();
 				session.setAttribute("service", service);
-				service.setToken(session.token);
+//				service.setToken(session.token);
 				return session.token;
 			} else {
 				throw new ResponseStatusException(HttpStatus.BAD_GATEWAY, "Login failed");

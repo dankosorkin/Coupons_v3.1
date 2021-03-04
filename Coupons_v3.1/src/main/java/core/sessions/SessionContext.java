@@ -42,7 +42,8 @@ public class SessionContext {
 				for (String sessionToken : sessionsMap.keySet()) {
 					Session session = sessionsMap.get(sessionToken);
 					if (isSessionExpired(session))
-						invalidateSession(session);
+						System.out.println("***" + session.token + "***");
+					invalidateSession(session);
 				}
 			}
 		};
