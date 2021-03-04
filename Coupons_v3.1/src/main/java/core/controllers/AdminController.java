@@ -1,14 +1,15 @@
 package core.controllers;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
 
 import core.entities.Company;
 import core.entities.Customer;
@@ -20,20 +21,32 @@ import core.services.AdminService;
 @RequestMapping("/api")
 public class AdminController extends ClientController {
 
-	@Autowired
 	private AdminService service;
 
 	@RequestMapping(value = "/add/company", method = RequestMethod.POST)
-	public ResponseEntity<?> addCompany(@RequestBody Company company) throws CouponSystemException {
-
-		return new ResponseEntity<Company>(service.addCompany(company), HttpStatus.OK);
+	public ResponseEntity<?> addCompany(@RequestHeader String token, @RequestBody Company company) {
+		try {
+			service = (AdminService) super.getService(token);
+			System.out.println(token);
+			Company c = service.addCompany(company);
+			System.out.println(c);
+			return ResponseEntity.ok(c);
+		} catch (CouponSystemException e) {
+			throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
+		} finally {
+			this.service = null;
+		}
 
 	}
 
 	@RequestMapping(value = "/update/company", method = RequestMethod.PUT)
-	public ResponseEntity<?> updateCompany(@RequestBody Company company) throws CouponSystemException {
-		service.updateCompany(company);
-		return new ResponseEntity<Company>(HttpStatus.OK);
+	public ResponseEntity<?> updateCompany(@RequestHeader String token, @RequestBody Company company) {
+		try {
+			service = (AdminService) super.getService(token);
+			return ResponseEntity.ok(service.updateCompany(company));
+		} catch (CouponSystemException e) {
+			throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
+		}
 
 	}
 
@@ -45,9 +58,12 @@ public class AdminController extends ClientController {
 	}
 
 	@RequestMapping(value = "/get/company/{id}", method = RequestMethod.GET)
-	public ResponseEntity<?> getOneCompany(@PathVariable Integer id) throws CouponSystemException {
-
-		return new ResponseEntity<Company>(service.getOneCompany(id), HttpStatus.OK);
+	public ResponseEntity<?> getOneCompany(@PathVariable Integer id) {
+		try {
+			return new ResponseEntity<Company>(service.getOneCompany(id), HttpStatus.OK);
+		} catch (CouponSystemException e) {
+			throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
+		}
 
 	}
 
@@ -91,12 +107,6 @@ public class AdminController extends ClientController {
 
 		return new ResponseEntity<>(service.getAllCustomers(), HttpStatus.OK);
 
-	}
-
-	@Override
-	public boolean login(String email, String password) throws CouponSystemException {
-		// TODO Auto-generated method stub
-		return false;
 	}
 
 }

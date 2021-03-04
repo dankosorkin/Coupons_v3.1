@@ -6,7 +6,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import core.exceptions.CouponSystemException;
 import core.services.CustomerService;
 
 @RestController
@@ -20,12 +19,6 @@ public class CustomerController extends ClientController {
 	@RequestMapping(value = "/purchase", method = RequestMethod.PUT)
 	public void purchaseCoupon() {
 
-	}
-
-	@Override
-	public boolean login(String email, String password) throws CouponSystemException {
-		// TODO Auto-generated method stub
-		return false;
 	}
 
 }
