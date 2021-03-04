@@ -182,8 +182,7 @@ public class CompanyService extends ClientService {
 	 */
 	public List<Coupon> getAllByCategory(Category category) throws CouponSystemException {
 
-		List<Coupon> coupons = couponRepository.findAllByCompanyAndCategory(this.id, category);
-//		List<Coupon> coupons = couponRepository.findAllByAndCategory(this.getClass().getName(), category);
+		List<Coupon> coupons = couponRepository.findAllByCompanyIdAndCategory(this.id, category);
 
 		if (coupons.size() > 0)
 			return coupons;
@@ -200,7 +199,7 @@ public class CompanyService extends ClientService {
 	 */
 	public List<Coupon> getAllByPrice(double price) throws CouponSystemException {
 
-		List<Coupon> coupons = couponRepository.findAllByCompanyAndPrice(this.id, price);
+		List<Coupon> coupons = couponRepository.findAllByCompanyIdAndPriceLessThanEqual(this.id, price);
 
 		if (coupons.size() > 0)
 			return coupons;
