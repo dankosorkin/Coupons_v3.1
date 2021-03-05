@@ -17,17 +17,16 @@ import org.springframework.stereotype.Component;
  * unique id (token)
  */
 @Component
-//@Scope(BeanDefinition.SCOPE_PROTOTYPE)
 @Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
 
 public class Session {
 
 	private Map<String, Object> attributes = new HashMap<String, Object>();
 	public final String token;
-	private long lastAccessed; // timestamp
+	private long lastAccessed;
 
-	@Value("${session.max.inactive.interval:1}") // optional fallback in case property not found
-	private long maxInactiveInterval; // milliseconds
+	@Value("${session.max.inactive.interval:1}")
+	private long maxInactiveInterval;
 
 	private static final int TOKEN_MAX_LENGTH = 15;
 
@@ -42,7 +41,7 @@ public class Session {
 
 	@PostConstruct
 	private void init() {
-		maxInactiveInterval = TimeUnit.MINUTES.toMillis(maxInactiveInterval); // convert to milliseconds
+		maxInactiveInterval = TimeUnit.MINUTES.toMillis(maxInactiveInterval);
 	}
 
 	public void setAttribute(String attrName, Object attrValue) {
