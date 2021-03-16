@@ -15,12 +15,7 @@ public abstract class ClientService {
 	protected CouponRepository couponRepository;
 	@Autowired
 	protected CustomerRepository customerRepository;
-	protected String token;
 
 	public abstract boolean login(String email, String password) throws CouponSystemException;
-
-	public void setToken(String token) {
-		this.token = token;
-	}
 
 }

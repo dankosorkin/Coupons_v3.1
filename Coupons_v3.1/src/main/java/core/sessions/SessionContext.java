@@ -63,6 +63,7 @@ public class SessionContext {
 		return session;
 	}
 
+	// TODO
 	public Session getSession(String token) {
 		Session session = sessionsMap.get(token);
 		if (session != null) {
@@ -71,9 +72,9 @@ public class SessionContext {
 				return session;
 			} else {
 				invalidateSession(session);
+				return null;
 			}
 		}
-
 		return null;
 	}
 

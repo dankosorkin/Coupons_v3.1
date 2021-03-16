@@ -32,6 +32,7 @@ public class LoginFilter implements Filter {
 
 		// get token
 		String token = req.getHeader("token");
+
 		if (token != null) {
 			// get session
 			Session session = context.getSession(token);
