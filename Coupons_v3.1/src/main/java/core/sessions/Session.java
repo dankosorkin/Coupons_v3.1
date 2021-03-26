@@ -25,7 +25,7 @@ public class Session {
 	public final String token;
 	private long lastAccessed;
 
-	@Value("${session.max.inactive.interval:1}")
+	@Value("${session.max.inactive.interval:5}")
 	private long maxInactiveInterval;
 
 	private static final int TOKEN_MAX_LENGTH = 15;

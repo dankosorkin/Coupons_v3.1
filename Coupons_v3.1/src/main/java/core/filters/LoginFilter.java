@@ -39,15 +39,12 @@ public class LoginFilter implements Filter {
 
 			if (session != null) {
 				// there is an active session
-				System.out.println("SESSION - forward the request");
 				chain.doFilter(request, response);
 				return;
 			}
 		}
 
-		// if we are here - there is no session
 		HttpServletResponse resp = (HttpServletResponse) response;
-		System.out.println("NO SESSION - forward the request");
 		resp.sendError(HttpStatus.UNAUTHORIZED.value(), "You are not logged in");
 	}
 

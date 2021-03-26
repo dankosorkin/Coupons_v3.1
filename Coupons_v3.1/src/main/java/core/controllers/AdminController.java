@@ -18,16 +18,13 @@ import core.services.AdminService;
 
 @RestController
 @CrossOrigin
-@RequestMapping("/api")
+@RequestMapping("/admin")
 public class AdminController extends ClientController {
-
-	private AdminService service;
 
 	@RequestMapping(value = "/add/company", method = RequestMethod.POST)
 	public ResponseEntity<?> addCompany(@RequestHeader String token, @RequestBody Company company) {
 		try {
-			service = (AdminService) super.getService(token);
-			return ResponseEntity.ok(service.addCompany(company));
+			return ResponseEntity.ok(getService(token).addCompany(company));
 		} catch (CouponSystemException e) {
 			throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
 		}
@@ -36,8 +33,7 @@ public class AdminController extends ClientController {
 	@RequestMapping(value = "/update/company", method = RequestMethod.PUT)
 	public ResponseEntity<?> updateCompany(@RequestHeader String token, @RequestBody Company company) {
 		try {
-			service = (AdminService) super.getService(token);
-			return ResponseEntity.ok(service.updateCompany(company));
+			return ResponseEntity.ok(getService(token).updateCompany(company));
 		} catch (CouponSystemException e) {
 			throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
 		}
@@ -46,8 +42,7 @@ public class AdminController extends ClientController {
 	@RequestMapping(value = "/delete/company/{id}", method = RequestMethod.DELETE)
 	public ResponseEntity<?> deleteCompany(@RequestHeader String token, @PathVariable Integer id) {
 		try {
-			service = (AdminService) super.getService(token);
-			return ResponseEntity.ok(service.deleteCompany(id));
+			return ResponseEntity.ok(getService(token).deleteCompany(id));
 		} catch (CouponSystemException e) {
 			throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
 		}
@@ -56,8 +51,7 @@ public class AdminController extends ClientController {
 	@RequestMapping(value = "/get/company/{id}", method = RequestMethod.GET)
 	public ResponseEntity<?> getOneCompany(@RequestHeader String token, @PathVariable Integer id) {
 		try {
-			service = (AdminService) super.getService(token);
-			return ResponseEntity.ok(service.getOneCompany(id));
+			return ResponseEntity.ok(getService(token).getOneCompany(id));
 		} catch (CouponSystemException e) {
 			throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
 		}
@@ -66,8 +60,7 @@ public class AdminController extends ClientController {
 	@RequestMapping(value = "/get/companies", method = RequestMethod.GET)
 	public ResponseEntity<?> getAllCompanies(@RequestHeader String token) {
 		try {
-			service = (AdminService) super.getService(token);
-			return ResponseEntity.ok(service.getAllCompanies());
+			return ResponseEntity.ok(getService(token).getAllCompanies());
 		} catch (CouponSystemException e) {
 			throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
 		}
@@ -76,8 +69,7 @@ public class AdminController extends ClientController {
 	@RequestMapping(value = "/add/customer", method = RequestMethod.POST)
 	public ResponseEntity<?> addCustomer(@RequestHeader String token, @RequestBody Customer customer) {
 		try {
-			service = (AdminService) super.getService(token);
-			return ResponseEntity.ok(service.addCustomer(customer));
+			return ResponseEntity.ok(getService(token).addCustomer(customer));
 		} catch (CouponSystemException e) {
 			throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
 		}
@@ -86,8 +78,7 @@ public class AdminController extends ClientController {
 	@RequestMapping(value = "/update/customer", method = RequestMethod.PUT)
 	public ResponseEntity<?> updateCustomer(@RequestHeader String token, @RequestBody Customer customer) {
 		try {
-			service = (AdminService) super.getService(token);
-			return ResponseEntity.ok(service.updateCustomer(customer));
+			return ResponseEntity.ok(getService(token).updateCustomer(customer));
 		} catch (CouponSystemException e) {
 			throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
 		}
@@ -96,8 +87,7 @@ public class AdminController extends ClientController {
 	@RequestMapping(value = "/delete/customer/{id}", method = RequestMethod.DELETE)
 	public ResponseEntity<?> deleteCustomer(@RequestHeader String token, @PathVariable Integer id) {
 		try {
-			service = (AdminService) super.getService(token);
-			return ResponseEntity.ok(service.deleteCustomer(id));
+			return ResponseEntity.ok(getService(token).deleteCustomer(id));
 		} catch (CouponSystemException e) {
 			throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
 		}
@@ -106,8 +96,7 @@ public class AdminController extends ClientController {
 	@RequestMapping(value = "/get/customer/{id}", method = RequestMethod.GET)
 	public ResponseEntity<?> getOneCustomer(@RequestHeader String token, @PathVariable Integer id) {
 		try {
-			service = (AdminService) super.getService(token);
-			return ResponseEntity.ok(service.getOneCustomer(id));
+			return ResponseEntity.ok(getService(token).getOneCustomer(id));
 		} catch (CouponSystemException e) {
 			throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
 		}
@@ -116,11 +105,14 @@ public class AdminController extends ClientController {
 	@RequestMapping(value = "/get/customers", method = RequestMethod.GET)
 	public ResponseEntity<?> getAllCustomers(@RequestHeader String token) {
 		try {
-			service = (AdminService) super.getService(token);
-			return ResponseEntity.ok(service.getAllCustomers());
+			return ResponseEntity.ok(getService(token).getAllCustomers());
 		} catch (CouponSystemException e) {
 			throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
 		}
+	}
+
+	protected AdminService getService(String token) throws CouponSystemException {
+		return (AdminService) super.getService(token);
 	}
 
 }

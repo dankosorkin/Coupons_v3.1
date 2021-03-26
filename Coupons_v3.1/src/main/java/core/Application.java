@@ -26,7 +26,7 @@ public class Application {
 		FilterRegistrationBean<LoginFilter> filterRegistration = new FilterRegistrationBean<>();
 		LoginFilter loginFilter = new LoginFilter(context);
 		filterRegistration.setFilter(loginFilter);
-		filterRegistration.addUrlPatterns("/api/*");
+		filterRegistration.addUrlPatterns("/admin/*", "/company/*", "/customer/*");
 		return filterRegistration;
 	}
 

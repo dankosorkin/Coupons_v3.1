@@ -24,7 +24,7 @@ public class SessionContext {
 
 	private Timer timer = new Timer();
 
-	@Value("${session.remove.expired.period:30}")
+	@Value("${session.remove.expired.period:20}")
 	private int removeExpiredPeriod; // time between each removal task run
 
 	private boolean isSessionExpired(Session session) {
@@ -41,9 +41,10 @@ public class SessionContext {
 
 				for (String sessionToken : sessionsMap.keySet()) {
 					Session session = sessionsMap.get(sessionToken);
-					if (isSessionExpired(session))
+					if (isSessionExpired(session)) {
 						System.out.println("***" + session.token + "***");
-					invalidateSession(session);
+						invalidateSession(session);
+					}
 				}
 			}
 		};

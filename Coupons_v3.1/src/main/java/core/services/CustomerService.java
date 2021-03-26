@@ -73,7 +73,7 @@ public class CustomerService extends ClientService {
 //			throw new CouponSystemException("Selected coupon is expired");
 
 		// check customer coupons purchases
-		List<Coupon> coupons = loggedInCustomer().getCoupons();
+		List<Coupon> coupons = getDetails().getCoupons();
 
 		for (Coupon current : coupons) {
 			if (current.equals(couponToPurchase))
@@ -84,7 +84,7 @@ public class CustomerService extends ClientService {
 		couponToPurchase.setAmount(couponToPurchase.getAmount() - 1);
 
 		// add to customer purchases
-		loggedInCustomer().addCoupon(couponToPurchase);
+		getDetails().addCoupon(couponToPurchase);
 
 		return true;
 
@@ -99,7 +99,7 @@ public class CustomerService extends ClientService {
 	 */
 	public List<Coupon> getAllCoupons() throws CouponSystemException {
 
-		List<Coupon> coupons = loggedInCustomer().getCoupons();
+		List<Coupon> coupons = getDetails().getCoupons();
 
 		if (coupons.size() > 0)
 			return coupons;
@@ -148,7 +148,7 @@ public class CustomerService extends ClientService {
 	 * @throws CouponSystemException
 	 * 
 	 */
-	public Customer loggedInCustomer() throws CouponSystemException {
+	public Customer getDetails() throws CouponSystemException {
 		Optional<Customer> opt = customerRepository.findById(this.id);
 		if (opt.isPresent())
 			return opt.get();

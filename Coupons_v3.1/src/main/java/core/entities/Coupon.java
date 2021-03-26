@@ -17,6 +17,8 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 /**
  * Class describes Coupon entity
  */
@@ -28,7 +30,6 @@ public class Coupon implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-//	@Enumerated(EnumType.STRING)
 	@Enumerated(EnumType.ORDINAL)
 	private Category category;
 	private String title;
@@ -41,6 +42,7 @@ public class Coupon implements Serializable {
 
 	@ManyToOne(cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH })
 	@JoinColumn(name = "company_id")
+	@JsonIgnore
 	private Company company;
 
 	@ManyToMany(cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH })
