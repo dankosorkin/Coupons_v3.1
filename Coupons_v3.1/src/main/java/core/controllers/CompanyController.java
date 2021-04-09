@@ -24,7 +24,7 @@ public class CompanyController extends ClientController {
 	@RequestMapping(value = "/add/coupon", method = RequestMethod.POST)
 	private ResponseEntity<?> addCoupon(@RequestHeader String token, @RequestBody Coupon coupon) {
 		try {
-			return ResponseEntity.ok(getService(token).addCoupon(coupon));
+			return ResponseEntity.ok(getService(token).getDetails().addCoupon(coupon));
 		} catch (CouponSystemException e) {
 			throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
 		}

@@ -54,6 +54,8 @@ public class CompanyService extends ClientService {
 	 */
 	public Coupon addCoupon(Coupon coupon) throws CouponSystemException {
 
+		coupon.setCompany(getDetails());
+
 		if (!validateCouponByTitleAndCompanyId(coupon)) {
 			throw new CouponSystemException("add coupon failed: already exists");
 		}
@@ -62,9 +64,9 @@ public class CompanyService extends ClientService {
 			throw new CouponSystemException("add coupon failed: end date cant be before start date");
 		}
 
-//		if (!validateCouponEndDate(coupon)) {
-//			throw new CouponSystemException("add coupon failed: expired coupon");
-//		}
+		if (!validateCouponEndDate(coupon)) {
+			throw new CouponSystemException("add coupon failed: expired coupon");
+		}
 
 		getDetails().addCoupon(coupon);
 

@@ -30,7 +30,7 @@ public class Coupon implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	@Enumerated(EnumType.ORDINAL)
+	@Enumerated(EnumType.STRING)
 	private Category category;
 	private String title;
 	private String description;
@@ -57,7 +57,6 @@ public class Coupon implements Serializable {
 	/**
 	 * Constructor creates coupon instance
 	 * 
-	 * @param Company   company
 	 * @param Category  category
 	 * @param String    title
 	 * @param String    description
@@ -67,9 +66,8 @@ public class Coupon implements Serializable {
 	 * @param Double    price
 	 * @param String    image
 	 */
-	public Coupon(Company company, Category category, String title, String description, LocalDate startDate,
-			LocalDate endDate, Integer amount, Double price, String image) {
-		this.company = company;
+	public Coupon(Category category, String title, String description, LocalDate startDate, LocalDate endDate,
+			Integer amount, Double price, String image) {
 		this.category = category;
 		this.title = title;
 		this.description = description;
