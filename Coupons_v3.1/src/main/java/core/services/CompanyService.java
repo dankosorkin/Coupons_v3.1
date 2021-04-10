@@ -75,9 +75,7 @@ public class CompanyService extends ClientService {
 	}
 
 	/**
-	 * The method updates coupon of a company. Method also should check expiration
-	 * date; but for the learning purpose and test of the thread for expired
-	 * coupons, date check is disabled.
+	 * The method updates coupon of a company.
 	 * 
 	 * @param Coupon coupon
 	 * @return boolean
