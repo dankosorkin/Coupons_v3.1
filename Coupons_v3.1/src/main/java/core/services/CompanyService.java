@@ -54,6 +54,8 @@ public class CompanyService extends ClientService {
 	 */
 	public Coupon addCoupon(Coupon coupon) throws CouponSystemException {
 
+		coupon.setCompany(getDetails());
+
 		if (!validateCouponByTitleAndCompanyId(coupon)) {
 			throw new CouponSystemException("add coupon failed: already exists");
 		}
@@ -66,7 +68,6 @@ public class CompanyService extends ClientService {
 			throw new CouponSystemException("add coupon failed: expired coupon");
 		}
 
-		coupon.setCompany(getDetails());
 		couponRepository.save(coupon);
 
 		return coupon;

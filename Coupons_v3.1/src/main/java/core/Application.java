@@ -32,8 +32,8 @@ public class Application {
 
 	@Bean
 	public Docket api() {
-		return new Docket(DocumentationType.SWAGGER_2).select().apis(RequestHandlerSelectors.basePackage("core"))
-				.paths(PathSelectors.ant("/**")).build();
+		return new Docket(DocumentationType.SWAGGER_2).select()
+				.apis(RequestHandlerSelectors.basePackage("core.controllers")).paths(PathSelectors.ant("/**")).build();
 	}
 
 }

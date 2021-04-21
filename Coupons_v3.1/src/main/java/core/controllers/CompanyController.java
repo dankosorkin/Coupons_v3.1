@@ -24,7 +24,7 @@ public class CompanyController extends ClientController {
 	@RequestMapping(value = "/add/coupon", method = RequestMethod.POST)
 	private ResponseEntity<?> addCoupon(@RequestHeader String token, @RequestBody Coupon coupon) {
 		try {
-			return ResponseEntity.ok(getService(token).getDetails().addCoupon(coupon));
+			return ResponseEntity.ok(getService(token).addCoupon(coupon));
 		} catch (CouponSystemException e) {
 			throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
 		}
@@ -66,8 +66,9 @@ public class CompanyController extends ClientController {
 		}
 	}
 
-	@RequestMapping(value = "/get/coupons/{category}", method = RequestMethod.GET)
-	private ResponseEntity<?> getAllByCategory(@RequestHeader String token, @PathVariable Category category) {
+	@RequestMapping(value = "/get/coupons/category/{category}", method = RequestMethod.GET)
+	private ResponseEntity<?> getAllByCategory(@RequestHeader String token,
+			@PathVariable("category") Category category) {
 		try {
 			return ResponseEntity.ok(getService(token).getAllByCategory(category));
 		} catch (CouponSystemException e) {
@@ -75,8 +76,8 @@ public class CompanyController extends ClientController {
 		}
 	}
 
-	@RequestMapping(value = "/get/coupons/{price}", method = RequestMethod.GET)
-	private ResponseEntity<?> getAllByPrice(@RequestHeader String token, @PathVariable Double price) {
+	@RequestMapping(value = "/get/coupons/price/{price}", method = RequestMethod.GET)
+	private ResponseEntity<?> getAllByPrice(@RequestHeader String token, @PathVariable("price") Double price) {
 		try {
 			return ResponseEntity.ok(getService(token).getAllByPrice(price));
 		} catch (CouponSystemException e) {

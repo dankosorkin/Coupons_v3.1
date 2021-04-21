@@ -1,7 +1,6 @@
 package core.entities;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -137,17 +136,6 @@ public class Company implements Serializable {
 	 */
 	public void setCoupons(List<Coupon> coupons) {
 		this.coupons = coupons;
-	}
-
-	/**
-	 * The method add new coupon to the company
-	 */
-	public boolean addCoupon(Coupon coupon) {
-		if (this.coupons == null) {
-			coupons = new ArrayList<Coupon>();
-		}
-		coupon.setCompany(this);
-		return coupons.add(coupon);
 	}
 
 	@Override

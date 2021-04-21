@@ -39,8 +39,9 @@ public class CustomerController extends ClientController {
 		}
 	}
 
-	@RequestMapping(value = "/get/coupons/{category}", method = RequestMethod.GET)
-	private ResponseEntity<?> getAllByCategory(@RequestHeader String token, @PathVariable Category category) {
+	@RequestMapping(value = "/get/coupons/category/{category}", method = RequestMethod.GET)
+	private ResponseEntity<?> getAllByCategory(@RequestHeader String token,
+			@PathVariable("category") Category category) {
 		try {
 			return ResponseEntity.ok(getService(token).getAllByCategory(category));
 		} catch (CouponSystemException e) {
@@ -48,8 +49,8 @@ public class CustomerController extends ClientController {
 		}
 	}
 
-	@RequestMapping(value = "/get/coupons/{price}", method = RequestMethod.GET)
-	private ResponseEntity<?> getAllByPrice(@RequestHeader String token, @PathVariable Double price) {
+	@RequestMapping(value = "/get/coupons/price/{price}", method = RequestMethod.GET)
+	private ResponseEntity<?> getAllByPrice(@RequestHeader String token, @PathVariable("price") Double price) {
 		try {
 			return ResponseEntity.ok(getService(token).getAllByPrice(price));
 		} catch (CouponSystemException e) {
