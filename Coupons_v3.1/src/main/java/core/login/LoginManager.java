@@ -1,6 +1,7 @@
 package core.login;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
 
 import core.exceptions.CouponSystemException;
@@ -13,24 +14,23 @@ import core.services.CustomerService;
 public class LoginManager {
 
 	@Autowired
-	private AdminService adminService;
-	@Autowired
-	private CompanyService companyService;
-	@Autowired
-	private CustomerService customerService;
+	private ApplicationContext ctx;
 
 	public ClientService login(String email, String password, ClientType client) throws CouponSystemException {
 
 		switch (client) {
 		case ADMINISTRATOR:
+			AdminService adminService = ctx.getBean(AdminService.class);
 			if (adminService.login(email, password))
 				return adminService;
 			break;
 		case COMPANY:
+			CompanyService companyService = ctx.getBean(CompanyService.class);
 			if (companyService.login(email, password))
 				return companyService;
 			break;
 		case CUSTOMER:
+			CustomerService customerService = ctx.getBean(CustomerService.class);
 			if (customerService.login(email, password))
 				return customerService;
 			break;

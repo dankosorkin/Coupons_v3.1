@@ -18,7 +18,7 @@ import core.exceptions.CouponSystemException;
 public class AdminService extends ClientService {
 
 	private String email = "admin";
-	private String password = "admin1234";
+	private String password = "admin";
 
 	/**
 	 * Login method for administrator using hard coded credentials for learning
