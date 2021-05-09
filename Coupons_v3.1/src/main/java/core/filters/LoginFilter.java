@@ -12,7 +12,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.http.HttpStatus;
 
-import core.sessions.Session;
 import core.sessions.SessionContext;
 
 public class LoginFilter implements Filter {
@@ -27,24 +26,16 @@ public class LoginFilter implements Filter {
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
 
-		// intercepting an incoming request
 		HttpServletRequest req = (HttpServletRequest) request;
-
-		// get token
 		String token = req.getHeader("token");
 
-		if (token != null) {
-			// get session
-			Session session = context.getSession(token);
-
-			if (session != null) {
-				// there is an active session
-				chain.doFilter(request, response);
-				return;
-			}
+		if (token != null && context.getSession(token) != null || req.getMethod().equals("OPTIONS")) {
+			chain.doFilter(request, response);
+			return;
 		}
 
 		HttpServletResponse resp = (HttpServletResponse) response;
+		resp.setHeader("Access-Control-Allow-Origin", "http://localhost:4200");
 		resp.sendError(HttpStatus.UNAUTHORIZED.value(), "You are not logged in");
 	}
 
