@@ -27,15 +27,25 @@ public class LoginFilter implements Filter {
 			throws IOException, ServletException {
 
 		HttpServletRequest req = (HttpServletRequest) request;
+
 		String token = req.getHeader("token");
 
-		if (token != null && context.getSession(token) != null || req.getMethod().equals("OPTIONS")) {
+		if (token != null && context.getSession(token) != null) {
 			chain.doFilter(request, response);
+			System.out.println("session");
 			return;
 		}
 
+		if (req.getMethod().equals("OPTIONS")) {
+			chain.doFilter(request, response);
+			System.out.println("preflight request");
+			return;
+		}
+
+		System.err.println("filter failed: " + req.getMethod());
 		HttpServletResponse resp = (HttpServletResponse) response;
-		resp.setHeader("Access-Control-Allow-Origin", "http://localhost:4200");
+		resp.setHeader("Access-Control-Allow-Origin", "*");
+		resp.setHeader("Access-Control-Allow-Headers", "*");
 		resp.sendError(HttpStatus.UNAUTHORIZED.value(), "You are not logged in");
 	}
 

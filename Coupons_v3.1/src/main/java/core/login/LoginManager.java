@@ -19,7 +19,7 @@ public class LoginManager {
 	public ClientService login(String email, String password, ClientType client) throws CouponSystemException {
 
 		switch (client) {
-		case ADMINISTRATOR:
+		case ADMIN:
 			AdminService adminService = ctx.getBean(AdminService.class);
 			if (adminService.login(email, password))
 				return adminService;
@@ -35,6 +35,6 @@ public class LoginManager {
 				return customerService;
 			break;
 		}
-		throw new CouponSystemException("Failed to log you in");
+		throw new CouponSystemException("Check your credentials");
 	}
 }

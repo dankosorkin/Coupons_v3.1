@@ -37,7 +37,6 @@ public class SessionContext {
 
 			@Override
 			public void run() {
-				System.out.println("removing expired sessions");
 
 				for (String sessionToken : sessionsMap.keySet()) {
 					Session session = sessionsMap.get(sessionToken);

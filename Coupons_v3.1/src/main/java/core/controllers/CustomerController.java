@@ -26,7 +26,7 @@ public class CustomerController extends ClientController {
 		try {
 			return ResponseEntity.ok(getService(token).purchaseCoupon(coupon));
 		} catch (CouponSystemException e) {
-			throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
+			throw new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE, e.getMessage());
 		}
 	}
 
@@ -35,7 +35,7 @@ public class CustomerController extends ClientController {
 		try {
 			return ResponseEntity.ok(getService(token).getAllCoupons());
 		} catch (CouponSystemException e) {
-			throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
+			throw new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE, e.getMessage());
 		}
 	}
 
@@ -45,7 +45,7 @@ public class CustomerController extends ClientController {
 		try {
 			return ResponseEntity.ok(getService(token).getAllByCategory(category));
 		} catch (CouponSystemException e) {
-			throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
+			throw new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE, e.getMessage());
 		}
 	}
 
@@ -54,7 +54,7 @@ public class CustomerController extends ClientController {
 		try {
 			return ResponseEntity.ok(getService(token).getAllByPrice(price));
 		} catch (CouponSystemException e) {
-			throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
+			throw new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE, e.getMessage());
 		}
 	}
 
@@ -63,7 +63,7 @@ public class CustomerController extends ClientController {
 		try {
 			return ResponseEntity.ok(getService(token).getDetails());
 		} catch (CouponSystemException e) {
-			throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
+			throw new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE, e.getMessage());
 		}
 	}
 

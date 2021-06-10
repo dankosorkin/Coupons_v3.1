@@ -2,6 +2,6 @@ package core.login;
 
 public enum ClientType {
 
-	ADMINISTRATOR, COMPANY, CUSTOMER;
+	ADMIN, COMPANY, CUSTOMER;
 
 }

@@ -18,15 +18,19 @@ import core.exceptions.CouponSystemException;
 public class AdminService extends ClientService {
 
 	private String email = "admin";
-	private String password = "admin";
+	private String password = "pass1234";
 
 	/**
 	 * Login method for administrator using hard coded credentials for learning
 	 * purpose only; real system will check credentials stored in database.
 	 */
 	@Override
-	public boolean login(String email, String password) {
-		return this.email.equals(email) && this.password.equals(password);
+	public boolean login(String email, String password) throws CouponSystemException {
+		if (this.email.equals(email) && this.password.equals(password)) {
+			return true;
+		} else {
+			throw new CouponSystemException("Login failed. Check your credentials.");
+		}
 	}
 
 	/**
@@ -53,6 +57,7 @@ public class AdminService extends ClientService {
 	 * @return boolean
 	 * @throws CouponSystemException
 	 */
+	// TODO add check for mail -> may be occupied by other company
 	public boolean updateCompany(Company company) throws CouponSystemException {
 		Optional<Company> opt = companyRepository.findById(company.getId());
 		if (opt.isPresent()) {

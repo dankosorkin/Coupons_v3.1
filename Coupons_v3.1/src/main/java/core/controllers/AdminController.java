@@ -26,7 +26,7 @@ public class AdminController extends ClientController {
 		try {
 			return ResponseEntity.ok(getService(token).addCompany(company));
 		} catch (CouponSystemException e) {
-			throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
+			throw new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE, e.getMessage());
 		}
 	}
 
@@ -35,7 +35,7 @@ public class AdminController extends ClientController {
 		try {
 			return ResponseEntity.ok(getService(token).updateCompany(company));
 		} catch (CouponSystemException e) {
-			throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
+			throw new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE, e.getMessage());
 		}
 	}
 
@@ -44,7 +44,7 @@ public class AdminController extends ClientController {
 		try {
 			return ResponseEntity.ok(getService(token).deleteCompany(id));
 		} catch (CouponSystemException e) {
-			throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
+			throw new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE, e.getMessage());
 		}
 	}
 
@@ -53,7 +53,7 @@ public class AdminController extends ClientController {
 		try {
 			return ResponseEntity.ok(getService(token).getOneCompany(id));
 		} catch (CouponSystemException e) {
-			throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
+			throw new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE, e.getMessage());
 		}
 	}
 
@@ -62,7 +62,7 @@ public class AdminController extends ClientController {
 		try {
 			return ResponseEntity.ok(getService(token).getAllCompanies());
 		} catch (CouponSystemException e) {
-			throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
+			throw new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE, e.getMessage());
 		}
 	}
 
@@ -71,7 +71,7 @@ public class AdminController extends ClientController {
 		try {
 			return ResponseEntity.ok(getService(token).addCustomer(customer));
 		} catch (CouponSystemException e) {
-			throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
+			throw new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE, e.getMessage());
 		}
 	}
 
@@ -80,7 +80,7 @@ public class AdminController extends ClientController {
 		try {
 			return ResponseEntity.ok(getService(token).updateCustomer(customer));
 		} catch (CouponSystemException e) {
-			throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
+			throw new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE, e.getMessage());
 		}
 	}
 
@@ -89,7 +89,7 @@ public class AdminController extends ClientController {
 		try {
 			return ResponseEntity.ok(getService(token).deleteCustomer(id));
 		} catch (CouponSystemException e) {
-			throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
+			throw new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE, e.getMessage());
 		}
 	}
 
@@ -98,7 +98,7 @@ public class AdminController extends ClientController {
 		try {
 			return ResponseEntity.ok(getService(token).getOneCustomer(id));
 		} catch (CouponSystemException e) {
-			throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
+			throw new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE, e.getMessage());
 		}
 	}
 
@@ -107,7 +107,7 @@ public class AdminController extends ClientController {
 		try {
 			return ResponseEntity.ok(getService(token).getAllCustomers());
 		} catch (CouponSystemException e) {
-			throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
+			throw new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE, e.getMessage());
 		}
 	}
 

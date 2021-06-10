@@ -39,7 +39,7 @@ public class CompanyService extends ClientService {
 			this.id = company.getId();
 			return true;
 		} else
-			throw new CouponSystemException("Failed to log you in as company");
+			throw new CouponSystemException("Check your credentials");
 	}
 
 	/**
@@ -95,8 +95,8 @@ public class CompanyService extends ClientService {
 		if (!validateCouponEndDate(coupon))
 			throw new CouponSystemException("update coupon failed: expired coupon");
 
-		if (!validateCouponByTitleAndCompanyId(coupon))
-			throw new CouponSystemException("update coupon failed: already exists (title should be unique)");
+//		if (!validateCouponByTitleAndCompanyId(coupon))
+//			throw new CouponSystemException("update coupon failed: already exists (title should be unique)");
 
 		if (coupon.getAmount() < 1)
 			throw new CouponSystemException("update coupon failed: amount should be grater then 0");
