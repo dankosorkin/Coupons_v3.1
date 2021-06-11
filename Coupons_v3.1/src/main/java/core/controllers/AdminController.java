@@ -48,10 +48,19 @@ public class AdminController extends ClientController {
 		}
 	}
 
-	@RequestMapping(value = "/get/company/{id}", method = RequestMethod.GET)
+	@RequestMapping(value = "/get/company/id/{id}", method = RequestMethod.GET)
 	public ResponseEntity<?> getOneCompany(@RequestHeader String token, @PathVariable Integer id) {
 		try {
 			return ResponseEntity.ok(getService(token).getOneCompany(id));
+		} catch (CouponSystemException e) {
+			throw new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE, e.getMessage());
+		}
+	}
+
+	@RequestMapping(value = "/get/company/name/{name}", method = RequestMethod.GET)
+	public ResponseEntity<?> getOneCompany(@RequestHeader String token, @PathVariable String name) {
+		try {
+			return ResponseEntity.ok(getService(token).getCompanyByName(name));
 		} catch (CouponSystemException e) {
 			throw new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE, e.getMessage());
 		}

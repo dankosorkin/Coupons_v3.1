@@ -28,4 +28,20 @@ public interface CompanyRepository extends JpaRepository<Company, Integer> {
 	 */
 	Company findByNameAndEmail(String name, String email) throws CouponSystemException;
 
+	/**
+	 * The method seek in database company instance by its email.
+	 * 
+	 * @param String email
+	 * @throws CouponSystemException
+	 */
+	Company findByEmail(String email);
+
+	/**
+	 * The method seek in database company instance by its name.
+	 * 
+	 * @param String email
+	 * @throws CouponSystemException
+	 */
+	Company findByName(String name);
+
 }

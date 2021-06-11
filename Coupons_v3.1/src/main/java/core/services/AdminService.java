@@ -42,10 +42,16 @@ public class AdminService extends ClientService {
 	 * @throws CouponSystemException
 	 */
 	public Company addCompany(Company company) throws CouponSystemException {
-		if (companyRepository.findByNameAndEmail(company.getName(), company.getEmail()) == null)
-			return companyRepository.save(company);
-		else
-			throw new CouponSystemException("add company failed: already exists");
+		if (companyRepository.findByNameAndEmail(company.getName(), company.getEmail()) != null)
+			throw new CouponSystemException("company already exists");
+
+		if (companyRepository.findByName(company.getName()) != null)
+			throw new CouponSystemException("name already in use");
+
+		if (companyRepository.findByEmail(company.getEmail()) != null)
+			throw new CouponSystemException("email already in use");
+
+		return companyRepository.save(company);
 
 	}
 
@@ -57,8 +63,10 @@ public class AdminService extends ClientService {
 	 * @return boolean
 	 * @throws CouponSystemException
 	 */
-	// TODO add check for mail -> may be occupied by other company
 	public boolean updateCompany(Company company) throws CouponSystemException {
+		if (companyRepository.findByEmail(company.getEmail()) != null) {
+			throw new CouponSystemException("email already in use");
+		}
 		Optional<Company> opt = companyRepository.findById(company.getId());
 		if (opt.isPresent()) {
 			Company companyDB = opt.get();
@@ -101,6 +109,20 @@ public class AdminService extends ClientService {
 		if (opt.isPresent())
 			return opt.get();
 		throw new CouponSystemException("get company failed: not found");
+	}
+
+	/**
+	 * The method returns specific company from database using its name.
+	 * 
+	 * @param Integer id
+	 * @return {@link Company} company
+	 * @throws CouponSystemException
+	 */
+	public Company getCompanyByName(String name) throws CouponSystemException {
+		Company company = companyRepository.findByName(name);
+		if (company != null)
+			return company;
+		throw new CouponSystemException("company " + name + " not found");
 	}
 
 	/**
