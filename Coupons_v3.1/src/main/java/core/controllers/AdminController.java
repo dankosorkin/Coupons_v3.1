@@ -111,6 +111,15 @@ public class AdminController extends ClientController {
 		}
 	}
 
+//	@RequestMapping(value = "/get/customer/name/{firstName}", method = RequestMethod.GET)
+//	public ResponseEntity<?> getOneCustomer(@RequestHeader String token, @PathVariable Integer id) {
+//		try {
+//			return ResponseEntity.ok(getService(token).getOneCustomer(id));
+//		} catch (CouponSystemException e) {
+//			throw new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE, e.getMessage());
+//		}
+//	}
+
 	@RequestMapping(value = "/get/customers", method = RequestMethod.GET)
 	public ResponseEntity<?> getAllCustomers(@RequestHeader String token) {
 		try {

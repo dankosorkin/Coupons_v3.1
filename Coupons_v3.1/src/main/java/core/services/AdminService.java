@@ -42,6 +42,7 @@ public class AdminService extends ClientService {
 	 * @throws CouponSystemException
 	 */
 	public Company addCompany(Company company) throws CouponSystemException {
+
 		if (companyRepository.findByNameAndEmail(company.getName(), company.getEmail()) != null)
 			throw new CouponSystemException("company already exists");
 
