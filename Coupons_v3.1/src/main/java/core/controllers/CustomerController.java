@@ -24,7 +24,25 @@ public class CustomerController extends ClientController {
 	@RequestMapping(value = "/purchase/coupon", method = RequestMethod.POST)
 	private ResponseEntity<?> purchaseCoupon(@RequestHeader String token, @RequestBody Coupon coupon) {
 		try {
-			return ResponseEntity.ok(getService(token).purchaseCoupon(coupon));
+			return ResponseEntity.ok(getService(token).addPurchase(coupon));
+		} catch (CouponSystemException e) {
+			throw new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE, e.getMessage());
+		}
+	}
+
+	@RequestMapping(value = "/purchase/delete/{id}", method = RequestMethod.DELETE)
+	private ResponseEntity<?> deletePurchase(@RequestHeader String token, @PathVariable Integer id) {
+		try {
+			return ResponseEntity.ok(getService(token).deletePurchase(id));
+		} catch (CouponSystemException e) {
+			throw new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE, e.getMessage());
+		}
+	}
+
+	@RequestMapping(value = "/get/coupon/{id}", method = RequestMethod.GET)
+	private ResponseEntity<?> getCoupon(@RequestHeader String token, @PathVariable Integer id) {
+		try {
+			return ResponseEntity.ok(getService(token).getCoupon(id));
 		} catch (CouponSystemException e) {
 			throw new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE, e.getMessage());
 		}

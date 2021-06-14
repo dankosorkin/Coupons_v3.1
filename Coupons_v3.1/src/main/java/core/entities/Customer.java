@@ -166,11 +166,27 @@ public class Customer implements Serializable {
 		this.coupons = coupons;
 	}
 
+	/**
+	 * The method add coupon purchase to customer list of purchases
+	 * 
+	 * @param Coupon coupon
+	 * @return boolean
+	 */
 	public boolean addCoupon(Coupon coupon) {
 		if (this.coupons == null) {
 			coupons = new ArrayList<Coupon>();
 		}
 		return coupons.add(coupon);
+	}
+
+	/**
+	 * The method delete coupon purchase from customer list of purchases
+	 * 
+	 * @param Coupon coupon
+	 * @return boolean
+	 */
+	public boolean deleteCoupon(Coupon coupon) {
+		return coupons.remove(coupon);
 	}
 
 	@Override

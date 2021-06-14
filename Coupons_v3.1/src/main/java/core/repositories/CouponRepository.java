@@ -23,6 +23,15 @@ public interface CouponRepository extends JpaRepository<Coupon, Integer> {
 	Coupon findByTitle(String title) throws CouponSystemException;
 
 	/**
+	 * The method seek in database coupon instance by its id and customer id.
+	 * 
+	 * @param Integer couponId
+	 * @param Integer customerId
+	 * @throws CouponSystemException
+	 */
+	Coupon findByIdAndCustomerId(Integer couponId, Integer customerId) throws CouponSystemException;
+
+	/**
 	 * The method seek in database expired coupon instances .
 	 * 
 	 * @param LocalDate date

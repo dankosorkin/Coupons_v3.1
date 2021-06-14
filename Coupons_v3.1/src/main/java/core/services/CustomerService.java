@@ -43,16 +43,14 @@ public class CustomerService extends ClientService {
 	}
 
 	/**
-	 * The method adds coupon to logged in customer purchase. Method also should
-	 * check expiration date; but for the learning purpose and test of the thread
-	 * for expired coupons, date check is disabled.
+	 * The method adds coupon to logged in customer purchase.
 	 * 
 	 * @param Coupon coupon
-	 * @return Coupon coupon
+	 * @return boolean
 	 * @throws CouponSystemException
 	 * 
 	 */
-	public boolean purchaseCoupon(Coupon coupon) throws CouponSystemException {
+	public boolean addPurchase(Coupon coupon) throws CouponSystemException {
 
 		Coupon couponToPurchase = null;
 
@@ -89,6 +87,58 @@ public class CustomerService extends ClientService {
 
 		return true;
 
+	}
+
+	/**
+	 * The method delete coupon from logged in customer purchase.
+	 * 
+	 * @param Coupon coupon
+	 * @return boolean
+	 * @throws CouponSystemException
+	 * 
+	 */
+	public boolean deletePurchase(Integer id) throws CouponSystemException {
+
+		Coupon couponToDelete = null;
+
+		Optional<Coupon> optCoupon = couponRepository.findById(id);
+		if (optCoupon.isPresent()) {
+			couponToDelete = optCoupon.get();
+		}
+
+		// check if exists
+		if (couponToDelete == null)
+			throw new CouponSystemException("coupon not found");
+
+		// check coupon date
+		if (couponToDelete.getEndDate().isBefore(LocalDate.now()))
+			throw new CouponSystemException("coupon is expired");
+
+		// increase coupon amount
+		couponToDelete.setAmount(couponToDelete.getAmount() + 1);
+
+		// remove from customer purchases
+		getDetails().deleteCoupon(couponToDelete);
+
+		return true;
+
+	}
+
+	/**
+	 * The method returns single coupon bought by a customer
+	 * 
+	 * @param Integer couponId
+	 * @return Coupon coupon
+	 * @throws CouponSystemException
+	 * 
+	 */
+	public Coupon getCoupon(Integer id) throws CouponSystemException {
+
+		Coupon coupon = couponRepository.findByIdAndCustomerId(id, getDetails().getId());
+
+		if (coupon != null)
+			return coupon;
+		throw new CouponSystemException("coupon not found");
 	}
 
 	/**
