@@ -29,7 +29,7 @@ public class AdminService extends ClientService {
 		if (this.email.equals(email) && this.password.equals(password)) {
 			return true;
 		} else {
-			throw new CouponSystemException("Login failed. Check your credentials.");
+			throw new CouponSystemException("Check your credentials.");
 		}
 	}
 
@@ -77,7 +77,7 @@ public class AdminService extends ClientService {
 			return true;
 		}
 
-		throw new CouponSystemException("update company failed: not found");
+		throw new CouponSystemException("company not found");
 	}
 
 	/**
@@ -94,7 +94,7 @@ public class AdminService extends ClientService {
 			companyRepository.delete(opt.get());
 			return opt.get();
 		}
-		throw new CouponSystemException("delete company failed: not found");
+		throw new CouponSystemException("company not found");
 
 	}
 
@@ -109,7 +109,7 @@ public class AdminService extends ClientService {
 		Optional<Company> opt = companyRepository.findById(id);
 		if (opt.isPresent())
 			return opt.get();
-		throw new CouponSystemException("get company failed: not found");
+		throw new CouponSystemException("company not found");
 	}
 
 	/**
@@ -134,7 +134,7 @@ public class AdminService extends ClientService {
 	 */
 	public List<Company> getAllCompanies() throws CouponSystemException {
 		List<Company> companies = companyRepository.findAll();
-		if (companies != null)
+		if (!companies.isEmpty())
 			return companies;
 		throw new CouponSystemException("get all companies failed: empty list");
 	}
@@ -150,7 +150,7 @@ public class AdminService extends ClientService {
 	public Customer addCustomer(Customer customer) throws CouponSystemException {
 		if (customerRepository.findByEmail(customer.getEmail()) == null)
 			return customerRepository.save(customer);
-		throw new CouponSystemException("add customer failed: already exists");
+		throw new CouponSystemException("customer already exists");
 	}
 
 	/**
@@ -172,7 +172,7 @@ public class AdminService extends ClientService {
 			customerRepository.save(customerDB);
 			return true;
 		}
-		throw new CouponSystemException("update customer failed: not found");
+		throw new CouponSystemException("customer not found");
 	}
 
 	/**
@@ -189,7 +189,7 @@ public class AdminService extends ClientService {
 			customerRepository.delete(opt.get());
 			return opt.get();
 		}
-		throw new CouponSystemException("delete customer failed: not found");
+		throw new CouponSystemException("customer not found");
 	}
 
 	/**
@@ -204,7 +204,7 @@ public class AdminService extends ClientService {
 		if (opt.isPresent())
 			return opt.get();
 		else
-			throw new CouponSystemException("get customer failed: not found");
+			throw new CouponSystemException("customer not found");
 	}
 
 	/**
@@ -215,7 +215,7 @@ public class AdminService extends ClientService {
 	 */
 	public List<Customer> getAllCustomers() throws CouponSystemException {
 		List<Customer> companies = customerRepository.findAll();
-		if (companies != null)
+		if (!companies.isEmpty())
 			return companies;
 		throw new CouponSystemException("get all customers: empty list");
 	}

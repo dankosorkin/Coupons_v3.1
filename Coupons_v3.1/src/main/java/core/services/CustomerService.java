@@ -1,5 +1,6 @@
 package core.services;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -62,15 +63,15 @@ public class CustomerService extends ClientService {
 
 		// check if exists
 		if (couponToPurchase == null)
-			throw new CouponSystemException("Coupon not found");
+			throw new CouponSystemException("coupon not found");
 
 		// check coupon amount
 		if (couponToPurchase.getAmount() < 1)
-			throw new CouponSystemException("Selected coupon is out of stock");
+			throw new CouponSystemException("selected coupon is out of stock");
 
 		// check coupon date
-//		if (couponToPurchase.getEndDate().isBefore(LocalDate.now()))
-//			throw new CouponSystemException("Selected coupon is expired");
+		if (couponToPurchase.getEndDate().isBefore(LocalDate.now()))
+			throw new CouponSystemException("coupon is expired");
 
 		// check customer coupons purchases
 		List<Coupon> coupons = getDetails().getCoupons();
@@ -101,9 +102,9 @@ public class CustomerService extends ClientService {
 
 		List<Coupon> coupons = getDetails().getCoupons();
 
-		if (coupons.size() > 0)
+		if (!coupons.isEmpty())
 			return coupons;
-		throw new CouponSystemException("The customer have no coupons");
+		throw new CouponSystemException("customer have no coupons");
 	}
 
 	/**
@@ -119,9 +120,9 @@ public class CustomerService extends ClientService {
 
 		List<Coupon> coupons = couponRepository.findAllByCustomerIdAndCategory(this.id, category);
 
-		if (coupons.size() > 0)
+		if (!coupons.isEmpty())
 			return coupons;
-		throw new CouponSystemException("The customer have no coupons in selected category");
+		throw new CouponSystemException("customer have no coupons in selected category");
 	}
 
 	/**
@@ -136,9 +137,9 @@ public class CustomerService extends ClientService {
 
 		List<Coupon> coupons = couponRepository.findAllByCustomerIdAndPriceLessThanEqual(this.id, price);
 
-		if (coupons.size() > 0)
+		if (!coupons.isEmpty())
 			return coupons;
-		throw new CouponSystemException("The customer have no coupons in selected price range");
+		throw new CouponSystemException("customer have no coupons in selected price range");
 	}
 
 	/**
@@ -152,7 +153,7 @@ public class CustomerService extends ClientService {
 		Optional<Customer> opt = customerRepository.findById(this.id);
 		if (opt.isPresent())
 			return opt.get();
-		throw new CouponSystemException("not logged in");
+		throw new CouponSystemException("you`re not logged in");
 	}
 
 }

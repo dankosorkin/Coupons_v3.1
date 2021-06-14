@@ -57,15 +57,15 @@ public class CompanyService extends ClientService {
 		coupon.setCompany(getDetails());
 
 		if (!validateCouponByTitleAndCompanyId(coupon)) {
-			throw new CouponSystemException("add coupon failed: already exists");
+			throw new CouponSystemException("coupon already exists");
 		}
 
 		if (!validateCouponStartDate(coupon)) {
-			throw new CouponSystemException("add coupon failed: end date cant be before start date");
+			throw new CouponSystemException("end date cant be before start date");
 		}
 
 		if (!validateCouponEndDate(coupon)) {
-			throw new CouponSystemException("add coupon failed: expired coupon");
+			throw new CouponSystemException("coupon is expired");
 		}
 
 		couponRepository.save(coupon);
@@ -86,23 +86,23 @@ public class CompanyService extends ClientService {
 		Coupon couponDB = findCoupon(coupon.getId());
 
 		if (couponDB == null)
-			throw new CouponSystemException("update coupon failed: not found");
+			throw new CouponSystemException("coupon not found");
 
 		if (!validateCouponStartDate(coupon)) {
-			throw new CouponSystemException("update coupon failed: end date cant be before start date");
+			throw new CouponSystemException("end date cant be before start date");
 		}
 
 		if (!validateCouponEndDate(coupon))
-			throw new CouponSystemException("update coupon failed: expired coupon");
+			throw new CouponSystemException("coupon is expired");
 
-//		if (!validateCouponByTitleAndCompanyId(coupon))
-//			throw new CouponSystemException("update coupon failed: already exists (title should be unique)");
+		if (!validateCouponByTitleAndCompanyId(coupon))
+			throw new CouponSystemException("already exists (title should be unique)");
 
 		if (coupon.getAmount() < 1)
-			throw new CouponSystemException("update coupon failed: amount should be grater then 0");
+			throw new CouponSystemException("amount should be grater then 0");
 
 		if (coupon.getPrice() < 0)
-			throw new CouponSystemException("update coupon failed: price should be positive number");
+			throw new CouponSystemException("price should be positive number");
 
 		couponDB.setCategory(coupon.getCategory());
 		couponDB.setTitle(coupon.getTitle());
@@ -126,10 +126,10 @@ public class CompanyService extends ClientService {
 	 */
 	public boolean deleteCoupon(Integer id) throws CouponSystemException {
 		if (findCoupon(id) == null)
-			throw new CouponSystemException("delete coupon failed: coupon not found");
+			throw new CouponSystemException("coupon not found");
 
 		if (findCoupon(id).getCompany().getId() != this.id)
-			throw new CouponSystemException("delete coupon failed: coupon doesnt belong to the company");
+			throw new CouponSystemException("coupon doesnt belong to the company");
 
 		couponRepository.delete(findCoupon(id));
 		return true;
@@ -147,10 +147,10 @@ public class CompanyService extends ClientService {
 		Coupon coupon = findCoupon(id);
 
 		if (coupon == null)
-			throw new CouponSystemException("get coupon failed: coupon not found");
+			throw new CouponSystemException("coupon not found");
 
 		if (coupon.getCompany().getId() != this.id)
-			throw new CouponSystemException("get coupon failed: coupon doesnt belong to the company");
+			throw new CouponSystemException("coupon doesnt belong to the company");
 
 		return coupon;
 	}
@@ -166,9 +166,9 @@ public class CompanyService extends ClientService {
 
 		List<Coupon> coupons = getDetails().getCoupons();
 
-		if (coupons.size() > 0)
+		if (!coupons.isEmpty())
 			return coupons;
-		throw new CouponSystemException("The company have no coupons");
+		throw new CouponSystemException("company have no coupons");
 	}
 
 	/**
@@ -184,9 +184,9 @@ public class CompanyService extends ClientService {
 
 		List<Coupon> coupons = couponRepository.findAllByCompanyIdAndCategory(this.id, category);
 
-		if (coupons.size() > 0)
+		if (!coupons.isEmpty())
 			return coupons;
-		throw new CouponSystemException("The company have no coupons in selected category");
+		throw new CouponSystemException("company have no coupons in selected category");
 	}
 
 	/**
@@ -201,9 +201,9 @@ public class CompanyService extends ClientService {
 
 		List<Coupon> coupons = couponRepository.findAllByCompanyIdAndPriceLessThanEqual(this.id, price);
 
-		if (coupons.size() > 0)
+		if (!coupons.isEmpty())
 			return coupons;
-		throw new CouponSystemException("The company have no coupons in selected price range");
+		throw new CouponSystemException("company have no coupons in selected price range");
 
 	}
 
@@ -268,7 +268,7 @@ public class CompanyService extends ClientService {
 		Optional<Company> opt = companyRepository.findById(id);
 		if (opt.isPresent())
 			return opt.get();
-		throw new CouponSystemException("not logged in");
+		throw new CouponSystemException("you`re not logged in");
 	}
 
 }
