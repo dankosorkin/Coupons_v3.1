@@ -71,6 +71,7 @@ public class AdminService extends ClientService {
 		Optional<Company> opt = companyRepository.findById(company.getId());
 		if (opt.isPresent()) {
 			Company companyDB = opt.get();
+
 			companyDB.setEmail(company.getEmail());
 			companyDB.setPassword(company.getPassword());
 			companyRepository.save(companyDB);
@@ -150,7 +151,7 @@ public class AdminService extends ClientService {
 	public Customer addCustomer(Customer customer) throws CouponSystemException {
 		if (customerRepository.findByEmail(customer.getEmail()) == null)
 			return customerRepository.save(customer);
-		throw new CouponSystemException("customer already exists");
+		throw new CouponSystemException("customer with " + customer.getEmail() + " already exists");
 	}
 
 	/**
@@ -205,6 +206,20 @@ public class AdminService extends ClientService {
 			return opt.get();
 		else
 			throw new CouponSystemException("customer not found");
+	}
+
+	/**
+	 * The method returns specific company from database using its name.
+	 * 
+	 * @param Integer id
+	 * @return {@link Company} company
+	 * @throws CouponSystemException
+	 */
+	public Customer getCustomerByName(String firstName, String lastName) throws CouponSystemException {
+		Customer customer = customerRepository.findByFirstNameAndLastName(firstName, lastName);
+		if (customer != null)
+			return customer;
+		throw new CouponSystemException("customer " + firstName + " " + lastName + " not found");
 	}
 
 	/**

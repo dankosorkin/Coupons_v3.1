@@ -24,7 +24,7 @@ public class HomeController {
 		try {
 			return ResponseEntity.ok(this.service.findAll());
 		} catch (CouponSystemException e) {
-			throw new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE, e.getMessage());
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
 		}
 	}
 

@@ -20,11 +20,20 @@ public interface CustomerRepository extends JpaRepository<Customer, Integer> {
 	Customer findByEmailAndPassword(String email, String password) throws CouponSystemException;
 
 	/**
-	 * The method seek in database company instance by its email.
+	 * The method seek in database customer instance by its email.
 	 * 
 	 * @param String email
 	 * @throws CouponSystemException
 	 */
 	Customer findByEmail(String email) throws CouponSystemException;
+
+	/**
+	 * The method seek in database customer instance by its full name.
+	 * 
+	 * @param String firstName
+	 * @param String lstName
+	 * @throws CouponSystemException
+	 */
+	Customer findByFirstNameAndLastName(String firstName, String lastName) throws CouponSystemException;
 
 }

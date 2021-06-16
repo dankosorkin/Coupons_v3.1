@@ -26,7 +26,7 @@ public class CompanyController extends ClientController {
 		try {
 			return ResponseEntity.ok(getService(token).addCoupon(coupon));
 		} catch (CouponSystemException e) {
-			throw new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE, e.getMessage());
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
 		}
 	}
 
@@ -35,7 +35,7 @@ public class CompanyController extends ClientController {
 		try {
 			return ResponseEntity.ok(getService(token).updateCoupon(coupon));
 		} catch (CouponSystemException e) {
-			throw new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE, e.getMessage());
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
 		}
 	}
 
@@ -44,7 +44,7 @@ public class CompanyController extends ClientController {
 		try {
 			return ResponseEntity.ok(getService(token).deleteCoupon(id));
 		} catch (CouponSystemException e) {
-			throw new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE, e.getMessage());
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
 		}
 	}
 
@@ -53,7 +53,7 @@ public class CompanyController extends ClientController {
 		try {
 			return ResponseEntity.ok(getService(token).getOneCoupon(id));
 		} catch (CouponSystemException e) {
-			throw new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE, e.getMessage());
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
 		}
 	}
 
@@ -62,7 +62,7 @@ public class CompanyController extends ClientController {
 		try {
 			return ResponseEntity.ok(getService(token).getAllCoupons());
 		} catch (CouponSystemException e) {
-			throw new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE, e.getMessage());
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
 		}
 	}
 
@@ -72,7 +72,7 @@ public class CompanyController extends ClientController {
 		try {
 			return ResponseEntity.ok(getService(token).getAllByCategory(category));
 		} catch (CouponSystemException e) {
-			throw new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE, e.getMessage());
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
 		}
 	}
 
@@ -81,7 +81,7 @@ public class CompanyController extends ClientController {
 		try {
 			return ResponseEntity.ok(getService(token).getAllByPrice(price));
 		} catch (CouponSystemException e) {
-			throw new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE, e.getMessage());
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
 		}
 	}
 
@@ -90,7 +90,7 @@ public class CompanyController extends ClientController {
 		try {
 			return ResponseEntity.ok(getService(token).getDetails());
 		} catch (CouponSystemException e) {
-			throw new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE, e.getMessage());
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
 		}
 	}
 
