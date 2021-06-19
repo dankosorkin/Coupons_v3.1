@@ -40,7 +40,7 @@ public class CompanyController extends ClientController {
 	}
 
 	@RequestMapping(value = "/delete/coupon/{id}", method = RequestMethod.DELETE)
-	private ResponseEntity<?> deleteCoupon(@RequestHeader String token, @PathVariable Integer id) {
+	private ResponseEntity<?> deleteCoupon(@RequestHeader String token, @PathVariable("id") Integer id) {
 		try {
 			return ResponseEntity.ok(getService(token).deleteCoupon(id));
 		} catch (CouponSystemException e) {
@@ -49,7 +49,7 @@ public class CompanyController extends ClientController {
 	}
 
 	@RequestMapping(value = "/get/coupon/{id}", method = RequestMethod.GET)
-	private ResponseEntity<?> getOneCoupon(@RequestHeader String token, @PathVariable Integer id) {
+	private ResponseEntity<?> getOneCoupon(@RequestHeader String token, @PathVariable("id") Integer id) {
 		try {
 			return ResponseEntity.ok(getService(token).getOneCoupon(id));
 		} catch (CouponSystemException e) {
@@ -67,10 +67,9 @@ public class CompanyController extends ClientController {
 	}
 
 	@RequestMapping(value = "/get/coupons/category/{category}", method = RequestMethod.GET)
-	private ResponseEntity<?> getAllByCategory(@RequestHeader String token,
-			@PathVariable("category") Category category) {
+	private ResponseEntity<?> getAllByCategory(@RequestHeader String token, @PathVariable("category") String category) {
 		try {
-			return ResponseEntity.ok(getService(token).getAllByCategory(category));
+			return ResponseEntity.ok(getService(token).getAllByCategory(Category.valueOf(category)));
 		} catch (CouponSystemException e) {
 			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
 		}
