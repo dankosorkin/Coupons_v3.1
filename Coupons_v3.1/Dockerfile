@@ -1,4 +1,4 @@
-FROM store/oracle/jdk:11
+FROM openjdk:8-jdk-oraclelinux8
 ADD target/coupons-0.1.0-SNAPSHOT.jar coupons-0.1.0-SNAPSHOT.jar
 EXPOSE 8080
 ENTRYPOINT ["java","-jar","coupons-0.1.0-SNAPSHOT.jar"]
