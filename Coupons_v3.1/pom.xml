@@ -8,13 +8,14 @@
 		<version>2.4.3</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.danielsorkin</groupId>
-	<artifactId>Coupons_v3.1</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<groupId>dev.sorkin</groupId>
+	<artifactId>coupons</artifactId>
+	<version>0.1.0-SNAPSHOT</version>
+	<packaging>jar</packaging>
 	<name>Coupons_v3.1</name>
 	<description>Coupon Mangement System</description>
 	<properties>
-		<java.version>11</java.version>
+		<java.version>1.8</java.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -59,9 +60,22 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+
+				<executions>
+					<execution>
+						<goals>
+							<goal>repackage</goal>
+						</goals>
+						<configuration>
+							<classifier>spring-boot</classifier>
+							<mainClass>
+								dev.sorkin.executable.ExecutableMavenJar
+							</mainClass>
+						</configuration>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
-		<finalName>coupons-docker</finalName>
 	</build>
 
 </project>

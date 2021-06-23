@@ -1,4 +1,4 @@
-FROM openjdk:8
+FROM store/oracle/jdk:11
+ADD target/coupons-0.1.0-SNAPSHOT.jar coupons-0.1.0-SNAPSHOT.jar
 EXPOSE 8080
-ADD coupons-docker.jar coupons-docker.jar
-ENTRYPOINT ["java","-jar","/coupons-docker.jar"]
+ENTRYPOINT ["java","-jar","coupons-0.1.0-SNAPSHOT.jar"]
