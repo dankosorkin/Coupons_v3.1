@@ -50,7 +50,7 @@ public class LoginController extends ClientController {
 		}
 	}
 
-	@RequestMapping(value = "/logout", method = RequestMethod.PUT)
+	@RequestMapping(value = "/logout", method = RequestMethod.GET)
 	public ResponseEntity<?> logout(@RequestHeader String token) {
 		System.out.println("logout " + token);
 		session = ctx.getSession(token);
