@@ -46,6 +46,7 @@ public class LoginFilter implements Filter {
 		HttpServletResponse resp = (HttpServletResponse) response;
 		resp.setHeader("Access-Control-Allow-Origin", "*");
 		resp.setHeader("Access-Control-Allow-Headers", "*");
+		resp.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
 		resp.sendError(HttpStatus.UNAUTHORIZED.value(), "You are not logged in");
 	}
 
