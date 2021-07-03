@@ -20,7 +20,7 @@ import org.springframework.web.multipart.MultipartFile;
 import core.services.FileStorageService;
 
 @RestController
-@CrossOrigin
+@CrossOrigin("*")
 public class FileController {
 
 	@Autowired

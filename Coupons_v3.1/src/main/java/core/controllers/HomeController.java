@@ -13,7 +13,7 @@ import core.exceptions.CouponSystemException;
 import core.services.HomeService;
 
 @RestController
-@CrossOrigin
+@CrossOrigin("*")
 public class HomeController {
 
 	@Autowired

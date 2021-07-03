@@ -17,7 +17,7 @@ import core.exceptions.CouponSystemException;
 import core.services.CompanyService;
 
 @RestController
-@CrossOrigin
+@CrossOrigin("*")
 @RequestMapping("/company")
 public class CompanyController extends ClientController {
 
