@@ -19,7 +19,7 @@ import core.login.LoginManager;
 import core.sessions.Session;
 
 @RestController
-@CrossOrigin("*")
+//@CrossOrigin("*")
 public class LoginController extends ClientController {
 
 	@Autowired
