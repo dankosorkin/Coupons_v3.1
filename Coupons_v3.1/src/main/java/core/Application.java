@@ -35,5 +35,5 @@ public class Application {
 		return new Docket(DocumentationType.SWAGGER_2).select()
 				.apis(RequestHandlerSelectors.basePackage("core.controllers")).paths(PathSelectors.ant("/**")).build();
 	}
-
+	
 }
