@@ -44,11 +44,11 @@ public class LoginFilter implements Filter {
 
 		System.err.println("filter failed: " + req.getMethod());
 		HttpServletResponse resp = (HttpServletResponse) response;
-		resp.setHeader("Access-Control-Allow-Origin", "*");
-		resp.setHeader("Access-Control-Allow-Headers",
+		//resp.setHeader("Access-Control-Allow-Origin", "*");
+		//resp.setHeader("Access-Control-Allow-Headers",
 				"DNT,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Range");
-		resp.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS, DELETE");
-		resp.setHeader("Access-Control-Expose-Headers", "Content-Length,Content-Range");
+		//resp.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS, DELETE");
+		//resp.setHeader("Access-Control-Expose-Headers", "Content-Length,Content-Range");
 		resp.sendError(HttpStatus.UNAUTHORIZED.value(), "You are not logged in");
 	}
 
